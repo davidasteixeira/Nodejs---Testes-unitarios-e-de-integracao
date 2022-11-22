@@ -50,10 +50,14 @@ describe('POST em /editoras', ()=>{
 });
 
 describe('PUT em /editoras/id', ()=>{
-    it('Deve alterar o campo nome',async ()=>{
+    it.each([
+        ['nome',{nome:'Casa do Codigo'}],
+        ['cidade',{cidade: 'SP'}],
+        ['email',{email:'cdc@cdc.com'}],
+    ])(`Deve alterar o campo %s`,async (chave, param)=>{
         await request(app)
             .put(`/editoras/${idResposta}`)
-            .send({nome:'Casa do código'})
+            .send(param)
             .expect(204);
     });
 });
